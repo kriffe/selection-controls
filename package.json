@@ -1,0 +1,22 @@
+{
+  "name": "selection-controls",
+  "version": "1.0.0",
+  "description": "Left click interaction for threejs. Fork of OrbitControls",
+  "main": "SelectionControls.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kriffe/selection-controls.git"
+  },
+  "keywords": [
+    "threejs"
+  ],
+  "author": "kriffe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kriffe/selection-controls/issues"
+  },
+  "homepage": "https://github.com/kriffe/selection-controls#readme"
+}
