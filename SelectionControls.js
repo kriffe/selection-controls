@@ -353,8 +353,13 @@
                 };
 				
 				//Enable target lock
-                this.enableGroundLock = function(){
+                this.enableTargetLock = function(){
                     constraint.enableTargetLock = true;
+                };
+				
+				//Disable target lock
+                this.disableTargetLock = function(){
+                    constraint.enableTargetLock = false;
                 };
                 
                 //Set maximum polar angle in radians. Good with ground lock and Math.PI/2
