@@ -45,6 +45,7 @@
 
                 //Lock upward axis to z
                 this.enableGroundLock = false;
+				this.enableTargetLock = false;
                 
 		////////////
 		// internals
@@ -254,7 +255,9 @@
 				radius = Math.max( this.minDistance, Math.min( this.maxDistance, radius ) );
 
 				// move target to panned location
-				this.target.add( panOffset );
+				if (!this.enableTargetLock){
+					this.target.add( panOffset );
+				}
 
 				offset.x = radius * Math.sin( phi ) * Math.sin( theta );
 				offset.y = radius * Math.cos( phi );
@@ -347,6 +350,11 @@
                 //Enable ground lock
                 this.enableGroundLock = function(){
                     constraint.enableGroundLock = true;
+                };
+				
+				//Enable target lock
+                this.enableGroundLock = function(){
+                    constraint.enableTargetLock = true;
                 };
                 
                 //Set maximum polar angle in radians. Good with ground lock and Math.PI/2
