@@ -9,14 +9,14 @@ grunt.initConfig({
     copy: {
         includeFiles:{
             files: [
-                {expand: true, flatten: true, cwd: '', src: "/src/*.js", dest: 'dist'},
+                {expand: true, flatten: true, cwd: '', src: "/src/*.js", dest: 'build'},
             ]
         },        
     },
     clean: {
-        dist:{   //Fix to clean out node_modules from local repo
+        build:{   //Fix to clean out node_modules from local repo
             src:[
-                'dist'
+                'build'
                ]
         }
     },
@@ -54,7 +54,7 @@ grunt.initConfig({
 	    // or grunt file syntax (<config:...>, *)
 	    src: "src/*.js",
                 // [OPTIONAL] set an output file
-	    dest: 'dist/<%= pkg.name%>.js'
+	    dest: 'build/<%= pkg.name%>.js'
 	  }
     },
 });
@@ -71,21 +71,20 @@ grunt.initConfig({
       var npmPackage = {
           version: pkg.version,
           name: pkg.name,
-          private: "true",
-          main: "./"+pkg.name + ".node.js",
+          //private: "true",
+          main: "./"+pkg.name + ".js",
           description:pkg.description,
           dependencies:pkg.dependencies,
           author: pkg.author
       };
 
       
-      grunt.file.write('dist/package.json',JSON.stringify(npmPackage,undefined,2));
+      grunt.file.write('build/package.json',JSON.stringify(npmPackage,undefined,2));
   });
   
   
   //Update npm modules and deploy relevant modules into app/components/
-  //grunt.registerTask('update',['clean:npmSkylibsClean','npm-install','copy:componentDeploy']);
-  
+ 
   grunt.registerTask('build',['closureCompiler','buildPackage']);
   
 };
