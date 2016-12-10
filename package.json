@@ -5,7 +5,7 @@
   "main": "build/selection-controls.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rimraf dist",
+    "clean": "grunt clean:build",
     "build": "grunt build",
     "prebuild": "npm run clean",
     "publish": "cd build && npm publish && cd ..",
@@ -37,7 +37,6 @@
     "grunt-contrib-copy": "^1.0.0",
     "grunt-publish": "^1.0.0",
     "install": "^0.8.2",
-    "npm": "^4.0.3",
-    "rimraf": "^2.5.4"
+    "npm": "^4.0.3"
   }
 }

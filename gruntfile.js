@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
-
-  
+	
+require('google-closure-compiler').grunt(grunt);
 
 //Initiate grunt configuration items
 grunt.initConfig({
@@ -20,47 +20,23 @@ grunt.initConfig({
                ]
         }
     },
-    closureCompiler:  {
-	  options: {
-	    // [REQUIRED] Path to closure compiler
-	    compilerFile: 'node_modules/google-closure-compiler/compiler.jar',
-
-	    // [OPTIONAL] set to true if you want to check if files were modified
-	    // before starting compilation (can save some time in large sourcebases)
-	    checkModified: false,
-
-	    // [OPTIONAL] Set Closure Compiler Directives here
-	    compilerOpts: {
-	        //compilation_level: 'ADVANCED_OPTIMIZATIONS',
-			//externs: [],
-			formatting:'pretty_print',
-            warning_level: 'default'
-	    },
-	    // [OPTIONAL] Set exec method options
-	    execOpts: {
-	       /**
-		* Set maxBuffer if you got message "Error: maxBuffer exceeded."
-		* Node default: 200*1024
-		*/
-	       maxBuffer: 999999 * 1024
-	    },
-	    d32: false, // will use 'java -client -d32 -jar compiler.jar'
-	    TieredCompilation: false// will use 'java -server -XX:+TieredCompilation -jar compiler.jar'
-	  },
-
-	  // any name that describes your task
-	  targetName: {
-	    // [OPTIONAL] Target files to compile. Can be a string, an array of strings
-	    // or grunt file syntax (<config:...>, *)
-	    src: "src/*.js",
-                // [OPTIONAL] set an output file
-	    dest: 'build/<%= pkg.name%>.js'
-	  }
-    },
+    "closure-compiler": {
+		my_target: {
+		  files: {
+			'build/selection-controls.js': ['src/*.js']
+		  },
+		  options: {
+			compilation_level: 'SIMPLE',
+			language_in: 'ECMASCRIPT5_STRICT',
+			//create_source_map: 'build/selection-controls.js.map',
+			//output_wrapper: '(function(){\n%output%\n}).call(this)\n//# sourceMappingURL=selection-controls.js.map'
+		  }
+		}
+	}
 });
 
   
-  grunt.loadNpmTasks('grunt-closure-tools');
+ 
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
@@ -85,6 +61,6 @@ grunt.initConfig({
   
   //Update npm modules and deploy relevant modules into app/components/
  
-  grunt.registerTask('build',['closureCompiler','buildPackage']);
+  grunt.registerTask('build',['closure-compiler','buildPackage']);
   
 };
