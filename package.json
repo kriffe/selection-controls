@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/kriffe/selection-controls/issues"
   },
-  "homepage": "https://github.com/kriffe/selection-controls#readme"
+  "homepage": "https://github.com/kriffe/selection-controls#readme",
+  "dependencies": {
+    "three": "^0.82.1"
+  }
 }
