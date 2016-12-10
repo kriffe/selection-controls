@@ -4,7 +4,8 @@
   "description": "Left click interaction for threejs. Fork of OrbitControls",
   "main": "SelectionControls.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf dist"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,16 @@
   "homepage": "https://github.com/kriffe/selection-controls#readme",
   "dependencies": {
     "three": "^0.82.1"
+  },
+  "devDependencies": {
+    "google-closure-compiler": "^20161201.0.0",
+    "grunt": "^1.0.1",
+    "grunt-closure-tools": "^0.9.9",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "install": "^0.8.2",
+    "npm": "^4.0.3",
+    "rimraf": "^2.5.4"
   }
 }

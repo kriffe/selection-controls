@@ -1,0 +1,11 @@
+{
+  "version": "1.0.2",
+  "name": "selection-controls",
+  "private": "true",
+  "main": "./selection-controls.node.js",
+  "description": "Left click interaction for threejs. Fork of OrbitControls",
+  "dependencies": {
+    "three": "^0.82.1"
+  },
+  "author": "kriffe"
+}
