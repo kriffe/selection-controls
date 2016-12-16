@@ -9,7 +9,7 @@
     "clean": "grunt clean:build",
     "build": "grunt build",
     "prebuild": "npm run clean",
-    "publish": "cd build && npm publish && cd ..",
+    "deploy": "cd build && npm publish && cd ..",
     "prepublish": "npm run build"
   },
   "private": true,
