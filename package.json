@@ -4,6 +4,7 @@
   "description": "Left click interaction for threejs. Fork of OrbitControls",
   "main": "build/selection-controls.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "grunt clean:build",
     "build": "grunt build",
@@ -29,6 +30,7 @@
     "three": "^0.82.1"
   },
   "devDependencies": {
+    "express": "^4.14.0",
     "google-closure-compiler": "^20161201.0.0",
     "grunt": "^1.0.1",
     "grunt-closure-tools": "^0.9.9",
@@ -37,6 +39,7 @@
     "grunt-contrib-copy": "^1.0.0",
     "grunt-publish": "^1.0.0",
     "install": "^0.8.2",
-    "npm": "^4.0.3"
+    "npm": "^4.0.3",
+    "three": "^0.82.1"
   }
 }

@@ -43,9 +43,10 @@
 		this.enableDamping = false;
 		this.dampingFactor = 0.25;
 
-                //Lock upward axis to z
+                
                 this.enableGroundLock = false;
 				this.enableTargetLock = false;
+				this.targetLockConstraints = {x:true,y:true,z:true};
                 
 		////////////
 		// internals
@@ -101,9 +102,22 @@
 				var te = this.object.matrix.elements;
 
 				// get X column of matrix
-				v.set( te[ 0 ], te[ 1 ], te[ 2 ] );
-				v.multiplyScalar( - distance );
+				
 
+				if (scope.enableTargetLock){
+					var freeDirections = {	//Handle free directions
+						x:scope.targetLockConstraints.x ? 1 : 0,
+						y:scope.targetLockConstraints.y ? 1 : 0,
+						z:scope.targetLockConstraints.z ? 1 : 0
+					}
+					
+					v.set( te[ 0 ]*(1-freeDirections.x), te[ 1 ]*(1-freeDirections.y), te[ 2 ]*(1-freeDirections.z) );
+					v.multiplyScalar( - distance );
+				}
+				else{
+					v.set( te[ 0 ], te[ 1 ], te[ 2 ] );
+					v.multiplyScalar( - distance );	
+				}
 				panOffset.add( v );
 
 			};
@@ -121,10 +135,20 @@
 
 				// get Y column of matrix
 				// get Y column of matrix. Zero out upward component if groundLock enabled
-                                if (scope.enableGroundLock){
-                                    v.set( te[ 4 ]*(1-scope.object.up.x), te[ 5 ]*(1-scope.object.up.y), te[ 6 ]*(1-scope.object.up.z) );   
+								if (scope.enableTargetLock){
+									var freeDirections = {
+										x:scope.targetLockConstraints.x ? 1 : 0,
+										y:scope.targetLockConstraints.y ? 1 : 0,
+										z:scope.targetLockConstraints.z ? 1 : 0
+									}
+									
+									v.set( te[ 4 ]*(1-freeDirections.x), te[ 5 ]*(1-freeDirections.y), te[ 6 ]*(1-freeDirections.z) );   
                                     v.normalize();
-                                }
+								}
+                                //else if (scope.enableGroundLock){
+                                //    v.set( te[ 4 ]*(1-scope.object.up.x), te[ 5 ]*(1-scope.object.up.y), te[ 6 ]*(1-scope.object.up.z) );   
+                                //    v.normalize();
+                                //}
                                 else{
                                     v.set( te[ 4 ], te[ 5 ], te[ 6 ] );
                                 }
@@ -255,9 +279,8 @@
 				radius = Math.max( this.minDistance, Math.min( this.maxDistance, radius ) );
 
 				// move target to panned location
-				if (!this.enableTargetLock){
-					this.target.add( panOffset );
-				}
+				this.target.add( panOffset );
+				
 
 				offset.x = radius * Math.sin( phi ) * Math.sin( theta );
 				offset.y = radius * Math.cos( phi );
@@ -347,14 +370,28 @@
 
 		};
                 
-                //Enable ground lock
+                //Enable ground lock relative upward direction
                 this.enableGroundLock = function(){
-                    constraint.enableGroundLock = true;
+					constraint.enableTargetLock = true;
+					constraint.targetLockConstraints.x = scope.object.up.x !== 0;
+					constraint.targetLockConstraints.y = scope.object.up.y !== 0;
+					constraint.targetLockConstraints.z = scope.object.up.z !== 0;
+					
                 };
 				
 				//Enable target lock
-                this.enableTargetLock = function(){
+                this.enableTargetLock = function(args){
+					args = args || {};
                     constraint.enableTargetLock = true;
+					if (args.x !== undefined){
+						constraint.targetLockConstraints.x = args.x;
+					}
+					if (args.y !== undefined){
+						constraint.targetLockConstraints.y = args.y;
+					}
+					if (args.z !== undefined){
+						constraint.targetLockConstraints.z = args.z;
+					}
                 };
 				
 				//Disable target lock
